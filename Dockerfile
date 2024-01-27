@@ -16,11 +16,8 @@ ENV HADOOP_HOME /opt/hadoop-$HADOOP_VERSION
 
 WORKDIR /opt
 
-#Fix changes to Jessie backports
-# - disabling validity checks
-RUN echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf
-# - using archive.debian.org instead of ftp.debian.org
-RUN sed -i 's/ftp/archive/g' /etc/apt/sources.list
+# Fix Repositories from Debian Jessie
+RUN echo "deb [trusted=yes] http://archive.debian.org/debian jessie main" > /etc/apt/sources.list
 
 #Install Hive
 RUN apt-get update && apt-get install -y wget procps && \
